@@ -1,0 +1,1044 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY eccf "http://data.europa.eu/54i" >
+    <!ENTITY dct "http://purl.org/dc/terms/" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY skos "http://www.w3.org/2004/02/skos/core#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="&eccf;#"
+     xml:base="http://data.europa.eu/54i"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:eccf="http://data.europa.eu/54i"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:dct="http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+    <owl:Ontology rdf:about="http://data.europa.eu/54i">
+        <dct:creator>Eddy Vanderlinden</dct:creator>
+        <owl:versionInfo xml:lang="en">1.18</owl:versionInfo>
+        <dct:title xml:lang="en">ECCF Core Ontology</dct:title>
+        <dct:creator>Ivo Velitchkov</dct:creator>
+        <dct:description xml:lang="en">The ECCF Core Ontology is part of the The European Commission Conceptual Framework (ECCF). It provides formal representation of the following story describing the European Commission:
+		1. EC provides Services, which are of type Policy Formulation and Policy Execution.
+		2. Policy Execution uses Financial Policy Instruments, Regulatory Policy Instruments, Transformations, and/or Assets.
+		3. All Services are provided by Actors and realised by Transformations.
+		4. Services and Policy Instruments are accessible through Channels. 
+		5. Formulated policies are applicable for Territories.
+		6. Assets are available at Locations.
+		7. Services and Actors are motivated by Motivation.
+		8. Actors are of type Persons and Organisations.
+		9. Actors have Capabilities, can perform Transformations and use Services.
+		10. All relations above are valid for periods of Time
+		
+	It can be reused by other Public Service organisations. </dct:description>
+        <dct:contributor>Thomas de Bodt</dct:contributor>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://data.europa.eu/54i#toDo -->
+
+    <owl:AnnotationProperty rdf:about="&eccf;#toDo">
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:subPropertyOf rdf:resource="&rdfs;comment"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#altLabel -->
+
+    <owl:AnnotationProperty rdf:about="&skos;altLabel"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#definition -->
+
+    <owl:AnnotationProperty rdf:about="&skos;definition"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://data.europa.eu/54i#hasMission -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#hasMission">
+        <rdfs:label xml:lang="en">has mission</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <owl:inverseOf rdf:resource="&eccf;#isMissionFor"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#isMotivatedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#hasObjective -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#hasObjective">
+        <rdfs:label xml:lang="en">has objective</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#isMotivatedBy"/>
+        <owl:inverseOf rdf:resource="&eccf;#isObjectiveFor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#hasPart -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#hasPart">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label xml:lang="en">has part</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <owl:inverseOf rdf:resource="&eccf;#isPartOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#hasPeriod -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#hasPeriod">
+        <rdfs:label xml:lang="en">has period</rdfs:label>
+        <skos:altLabel xml:lang="en">has interval</skos:altLabel>
+        <rdfs:comment xml:lang="en">hasPeriod (Alt: &quot;has interval&quot;) has range Time (Temporal), which is the domain of the dataType properties periodStart and and periodEnd.
+
+The usage of the alternative label “has interval” should be done considering the difference between “period” and “interval”. 
+
+An interval in Joda-Time represents an interval of time from one millisecond instant to another instant. 
+A duration in Joda-Time represents a duration of time measured in milliseconds. The duration is often obtained from an interval.
+A period in Joda-Time represents a period of time defined in terms of fields, for example, 3 years 5 months 2 days and 7 hours. This differs from a duration in that it is inexact in terms of milliseconds. A period can only be resolved to an exact number of milliseconds by specifying the instant (including chronology and time zone) it is relative to.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:range rdf:resource="&eccf;#Time"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#hasValue -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#hasValue">
+        <rdfs:label xml:lang="en">has value</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#isMotivatedBy"/>
+        <owl:inverseOf rdf:resource="&eccf;#isValueFor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#hasVision -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#hasVision">
+        <rdfs:label xml:lang="en">has vision</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#isMotivatedBy"/>
+        <owl:inverseOf rdf:resource="&eccf;#isVisionFor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isAccessibleThrough -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isAccessibleThrough">
+        <rdfs:label xml:lang="en">is accessible through</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:range rdf:resource="&eccf;#Channel"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#isAt"/>
+        <owl:inverseOf rdf:resource="&eccf;#providesAccessTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isApplicableFor -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isApplicableFor">
+        <rdfs:label xml:lang="en">is applicable for</rdfs:label>
+        <rdfs:comment xml:lang="en">e.g. Public Service X is applicable for Territory Y (is a Location)
+However, this property is not restricted to PublicService/Location Domain/Range</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isAt -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isAt">
+        <rdfs:label xml:lang="en">is at</rdfs:label>
+        <skos:altLabel xml:lang="en">has location</skos:altLabel>
+        <skos:altLabel xml:lang="en">is available at</skos:altLabel>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:range rdf:resource="&eccf;#Location"/>
+        <owl:inverseOf rdf:resource="&eccf;#isLocationOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isCapableOf -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isCapableOf">
+        <rdfs:label xml:lang="en">is capable of</rdfs:label>
+        <skos:altLabel xml:lang="en">can perform</skos:altLabel>
+        <skos:altLabel xml:lang="en">has capability</skos:altLabel>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:range rdf:resource="&eccf;#Capability"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&eccf;#hasPart"/>
+            <rdf:Description rdf:about="&eccf;#isCapableOf"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isLocationOf -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isLocationOf">
+        <rdfs:label xml:lang="en">is location of</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:domain rdf:resource="&eccf;#Location"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&eccf;#hasPart"/>
+            <rdf:Description rdf:about="&eccf;#isLocationOf"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isMissionFor -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isMissionFor">
+        <rdfs:label xml:lang="en">is mission for</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#isMotivationFor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isMotivatedBy -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isMotivatedBy">
+        <rdfs:label xml:lang="en">is motivated by</rdfs:label>
+        <skos:altLabel xml:lang="en">has motivation</skos:altLabel>
+        <rdfs:comment xml:lang="en">see the comment in &quot;is motivation for&quot;</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <owl:inverseOf rdf:resource="&eccf;#isMotivationFor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isMotivationFor -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isMotivationFor">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label xml:lang="en">is motivation for</rdfs:label>
+        <rdfs:comment xml:lang="en">Strictly speaking something can only be a motivation for an Agent, or in fact - only for a Person. However, the choice is to use isMotivationFor in a broader sense so that why-chains can be traced. For example, using the inverse property, if &lt;this&gt; isMotivatedBy &lt;reason1&gt;, which isMotivatedBy &lt;reason2&gt;, it seems useful to infer that &lt;reason2&gt; isMotivationFor &lt;this&gt;, which is achieved by declaring isMotivatedFor as transitive property.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:domain rdf:resource="&eccf;#Motivation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isObjectiveFor -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isObjectiveFor">
+        <rdfs:label xml:lang="en">is objective for</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#isMotivationFor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isPartOf -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isPartOf">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label xml:lang="en">is part of</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isProvidedBy -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isProvidedBy">
+        <rdfs:label xml:lang="en">is provided by</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <owl:inverseOf rdf:resource="&eccf;#provides"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isRealisedThrough -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isRealisedThrough">
+        <rdfs:label xml:lang="en">is realised through</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <owl:inverseOf rdf:resource="&eccf;#realises"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isSupportedBy -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isSupportedBy">
+        <rdfs:label xml:lang="en">is supported by</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <owl:inverseOf rdf:resource="&eccf;#supports"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isUsedBy -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isUsedBy">
+        <rdfs:label xml:lang="en">is used by</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <owl:inverseOf rdf:resource="&eccf;#uses"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isValidFor -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isValidFor">
+        <rdfs:label xml:lang="en">is valid for</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isValueFor -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isValueFor">
+        <rdfs:label xml:lang="en">is value for</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#isMotivationFor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#isVisionFor -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#isVisionFor">
+        <rdfs:label xml:lang="en">is vision for</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#isMotivationFor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#provides -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#provides">
+        <rdfs:label xml:lang="en">provides</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&eccf;#hasPart"/>
+            <rdf:Description rdf:about="&eccf;#provides"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#providesAccessTo -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#providesAccessTo">
+        <rdfs:label xml:lang="en">provides access to</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#isLocationOf"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#provides"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#realises -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#realises">
+        <rdfs:label xml:lang="en">realises</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#supports -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#supports">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label xml:lang="en">supports</rdfs:label>
+        <rdfs:comment xml:lang="en">Any Capability can support a Transformation.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&eccf;#supports"/>
+            <rdf:Description rdf:about="&eccf;#isPartOf"/>
+        </owl:propertyChainAxiom>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&eccf;#isPartOf"/>
+            <rdf:Description rdf:about="&eccf;#supports"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#uses -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#uses">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label xml:lang="en">uses</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&eccf;#hasPart"/>
+            <rdf:Description rdf:about="&eccf;#uses"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#usesAsset -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#usesAsset">
+        <rdfs:label xml:lang="en">uses asset</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:range rdf:resource="&eccf;#Asset"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#uses"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#usesInstrument -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#usesInstrument">
+        <rdfs:label xml:lang="en">uses instrument</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:range rdf:resource="&eccf;#PolicyInstrument"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#uses"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#usesService -->
+
+    <owl:ObjectProperty rdf:about="&eccf;#usesService">
+        <rdfs:label xml:lang="en">uses service</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:range rdf:resource="&eccf;#Service"/>
+        <rdfs:subPropertyOf rdf:resource="&eccf;#uses"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://data.europa.eu/54i#periodEnd -->
+
+    <owl:DatatypeProperty rdf:about="&eccf;#periodEnd">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">period end</rdfs:label>
+        <rdfs:comment xml:lang="en">An individual member of class Temporal can have  one or two data-properties.
+In the first case it refers to a point in time, in the second - to a period (or interval - see the difference in the comment of http://data.europa.eu/54i#hasPeriod), defined by periodStart and periodEnd.
+
+All three properties have their domain declared as member of class Temporal. This means that, if one of these properties is used by members of other classes, that member will be inferred as member of the Temporal class. The purpose is to be able query all temporal information from that single class.
+
+All three properties are declared as  functional. This means, each individual will have only one property of the kind.</rdfs:comment>
+        <skos:altLabel xml:lang="en">interval end</skos:altLabel>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:domain rdf:resource="&eccf;#Time"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#periodStart -->
+
+    <owl:DatatypeProperty rdf:about="&eccf;#periodStart">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">period start</rdfs:label>
+        <rdfs:comment xml:lang="en">An individual member of class Temporal can have  one or two data-properties.
+In the first case it refers to a point in time, in the second - to a period (or interval - see the difference in the comment of http://data.europa.eu/54i#hasPeriod), defined by periodStart and periodEnd.
+
+All three properties have their domain declared as member of class Temporal. This means that, if one of these properties is used by members of other classes, that member will be inferred as member of the Temporal class. The purpose is to be able query all temporal information from that single class.
+
+All three properties are declared as  functional. This means, each individual will have only one property of the kind.</rdfs:comment>
+        <skos:altLabel xml:lang="en">interval start</skos:altLabel>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:domain rdf:resource="&eccf;#Time"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/54i#pointInTime -->
+
+    <owl:DatatypeProperty rdf:about="&eccf;#pointInTime">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">point in time</rdfs:label>
+        <rdfs:comment xml:lang="en">An individual member of class Temporal can have  one or two data-properties.
+In the first case it refers to a point in time, in the second - to a period (or interval - see the difference in the comment of http://data.europa.eu/54i#hasPeriod), defined by periodStart and periodEnd.
+
+All three properties have their domain declared as member of class Temporal. This means that, if one of these properties is used by members of other classes, that member will be inferred as member of the Temporal class. The purpose is to be able query all temporal information from that single class.
+
+All three properties are declared as  functional. This means, each individual will have only one property of the kind.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+        <rdfs:domain rdf:resource="&eccf;#Time"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://data.europa.eu/54i#Actor -->
+
+    <owl:Class rdf:about="&eccf;#Actor">
+        <rdfs:label xml:lang="en">Actor</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="&eccf;#usesAsset"/>
+                                <owl:someValuesFrom rdf:resource="&eccf;#Asset"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="&eccf;#usesInstrument"/>
+                                <owl:someValuesFrom rdf:resource="&eccf;#PolicyInstrument"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="&eccf;#usesService"/>
+                                <owl:someValuesFrom rdf:resource="&eccf;#Service"/>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#isCapableOf"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#Capability"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#isCapableOf"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#Transformation"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#isMotivatedBy"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#Motivation"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Asset -->
+
+    <owl:Class rdf:about="&eccf;#Asset">
+        <rdfs:label xml:lang="en">Asset</rdfs:label>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&eccf;#isAt"/>
+                <owl:someValuesFrom rdf:resource="&eccf;#Location"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Capability -->
+
+    <owl:Class rdf:about="&eccf;#Capability">
+        <rdfs:label xml:lang="en">Capability</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Channel -->
+
+    <owl:Class rdf:about="&eccf;#Channel">
+        <rdfs:label xml:lang="en">Channel</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Location"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#providesAccessTo"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#PolicyInstrument"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#providesAccessTo"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#Service"/>
+                    </owl:Restriction>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Consumable -->
+
+    <owl:Class rdf:about="&eccf;#Consumable">
+        <rdfs:label xml:lang="en">Consumable</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Asset"/>
+        <skos:altLabel xml:lang="en">Agent</skos:altLabel>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Document -->
+
+    <owl:Class rdf:about="&eccf;#Document">
+        <rdfs:label xml:lang="en">Document</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#InformationCarrier"/>
+        <rdfs:comment xml:lang="en">Includes both paper and electornic documents; 
+includes contracts.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Factor -->
+
+    <owl:Class rdf:about="&eccf;#Factor">
+        <rdfs:label xml:lang="en">Factor</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Influencer"/>
+        <rdfs:comment xml:lang="en">External or internal factor that influences the enterprise in focus. That could be a policy of another country, the oil price etc. It could be a constraint, or an opportunity. In any case it is something that cannon be directly influenced by the enterprise in focus.
+
+An example of internal factor is maturity, or the age pyramid.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#FinancialAsset -->
+
+    <owl:Class rdf:about="&eccf;#FinancialAsset">
+        <rdfs:label xml:lang="en">Financial Asset</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Asset"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#FinancialInstrument -->
+
+    <owl:Class rdf:about="&eccf;#FinancialInstrument">
+        <rdfs:label xml:lang="en">Financial Instrument</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#PolicyInstrument"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#ICTasset -->
+
+    <owl:Class rdf:about="&eccf;#ICTasset">
+        <rdfs:label xml:lang="en">ICT Asset</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Asset"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Influencer -->
+
+    <owl:Class rdf:about="&eccf;#Influencer">
+        <rdfs:label xml:lang="en">Influencer</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Motivation"/>
+        <rdfs:comment xml:lang="en">The Influencer class includes all Motivations that affect (or might affect, in the case of Risks) but cannot be influenced directly by the organisation-in-focus.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#InformationCarrier -->
+
+    <owl:Class rdf:about="&eccf;#InformationCarrier">
+        <rdfs:label xml:lang="en">Information Carrier</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Asset"/>
+        <rdfs:comment xml:lang="en">A carrier of information. It can be non-electric like paper document, business card, or poster. 
+It can be electronic such as file, or combined such a business card or a digital badge.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#InformationSystem -->
+
+    <owl:Class rdf:about="&eccf;#InformationSystem">
+        <rdfs:label xml:lang="en">Information System</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#ICTasset"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#InformationTechnology -->
+
+    <owl:Class rdf:about="&eccf;#InformationTechnology">
+        <rdfs:label xml:lang="en">Information Technology</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#ICTasset"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Location -->
+
+    <owl:Class rdf:about="&eccf;#Location">
+        <rdfs:label xml:lang="en">Location</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Mission -->
+
+    <owl:Class rdf:about="&eccf;#Mission">
+        <rdfs:label xml:lang="en">Mission</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Motivation"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Motivation -->
+
+    <owl:Class rdf:about="&eccf;#Motivation">
+        <rdfs:label xml:lang="en">Motivation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#isMotivationFor"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#Actor"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#isMotivationFor"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#Service"/>
+                    </owl:Restriction>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">Strictly speaking Motivation can refer only to Actors. However, the intention is to use it in a broader sense so that the question &quot;Why&quot; can be put not only on the behaviours of Actors but also on e.g. Services they provide. This way a certain Public Service  can be related to Values and Objectives.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Objective -->
+
+    <owl:Class rdf:about="&eccf;#Objective">
+        <rdfs:label xml:lang="en">Objective</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Motivation"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Organisation -->
+
+    <owl:Class rdf:about="&eccf;#Organisation">
+        <rdfs:label xml:lang="en">Organisation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Actor"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Person -->
+
+    <owl:Class rdf:about="&eccf;#Person">
+        <rdfs:label xml:lang="en">Person</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Actor"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#PolicyExecution -->
+
+    <owl:Class rdf:about="&eccf;#PolicyExecution">
+        <rdfs:label xml:lang="en">Policy Execution</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Service"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#usesAsset"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#Asset"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#usesInstrument"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#FinancialInstrument"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#usesInstrument"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#PolicyInstrument"/>
+                    </owl:Restriction>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">In the context of EC and other EU institutions, Policy Execution ensures that, in accordance with the Treaties, the EU legislation is properly implemented and decisions are well applied.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#PolicyFormulation -->
+
+    <owl:Class rdf:about="&eccf;#PolicyFormulation">
+        <rdfs:label xml:lang="en">Policy Formulation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Service"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&eccf;#isApplicableFor"/>
+                <owl:someValuesFrom rdf:resource="&eccf;#Territory"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#PolicyInstrument -->
+
+    <owl:Class rdf:about="&eccf;#PolicyInstrument">
+        <rdfs:label xml:lang="en">Policy Instrument</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#RegulatoryInstrument -->
+
+    <owl:Class rdf:about="&eccf;#RegulatoryInstrument">
+        <rdfs:label xml:lang="en">Regulatory Instrument</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#PolicyInstrument"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Risk -->
+
+    <owl:Class rdf:about="&eccf;#Risk">
+        <rdfs:label xml:lang="en">Risk</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Influencer"/>
+        <rdfs:comment>&quot;The Influencer class includes all Motivations that affect (or might affect</rdfs:comment>
+        <rdfs:comment xml:lang="en">in the case of Risks) but cannot be influenced directly by the organisation-in-focus.&quot;</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Service -->
+
+    <owl:Class rdf:about="&eccf;#Service">
+        <rdfs:label xml:lang="en">Service</rdfs:label>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#hasValue"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#Value"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#isAccessibleThrough"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#Channel"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#isProvidedBy"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#Actor"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eccf;#isRealisedThrough"/>
+                        <owl:someValuesFrom rdf:resource="&eccf;#Transformation"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">The &quot;Service&quot; is now used instead of &quot;Public Service&quot;. There are two reasons for that decision:
+1. As ECCF is about EC enterprise, not just EC organisation, it should be able to describe as well services provided to EC from private companies.
+2. There is a lot of confusion around SGI, SGEI, and Public Service. The advice received from Denis Prost and Julie Decroix, among others, was to avoid Public Service. More arguments in support of that decision are provided below:
+
+http://ec.europa.eu/services_general_interest/docs/comm_quality_framework_en.pdf
+
+Basic concepts
+The debate on services of general interest suffers from a lack of clarity on terminology. The
+concepts are used interchangeably and inaccurately. Stakeholders have asked the Commission
+to provide clarity. In doing so, however, the Commission is bound by EU primary law and the
+Court&apos;s case-law. Moreover, the concepts are dynamic and evolve.
+Service of general interest (SGI): SGI are services that public authorities of the Member
+States classify as being of general interest and, therefore, subject to specific public service
+obligations (PSO). The term covers both economic activities (see the definition of SGEI
+below) and non-economic services. The latter are not subject to specific EU legislation and
+are not covered by the internal market and competition rules of the Treaty. Some aspects of
+how these services are organised may be subject to other general Treaty rules, such as the
+principle of non-discrimination.
+
+Service of general economic interest (SGEI): SGEI are economic activities which deliver
+outcomes in the overall public good that would not be supplied (or would be supplied under
+different conditions in terms of quality, safety, affordability, equal treatment or universal
+access) by the market without public intervention. The PSO is imposed on the provider by
+way of an entrustment and on the basis of a general interest criterion which ensures that the
+service is provided under conditions allowing it to fulfil its mission.
+
+Social services of general interest (SSGI): these include social security schemes covering
+the main risks of life and a range of other essential services provided directly to the person
+that play a preventive and socially cohesive/inclusive role6. While some social services (such
+as statutory social security schemes) are not considered by the European Court as being
+economic activities, the jurisprudence of the Court makes clear that the social nature of a
+service is not sufficient in itself to classify it as non-economic7. The term social service of
+general interest consequently covers both economic and non-economic activities.
+Universal service obligation (USO): USO are a type of PSO which sets the requirements
+designed to ensure that certain services are made available to all consumers and users in a
+Member State, regardless of their geographical location, at a specified quality and, taking
+account of specific national circumstances, at an affordable price. The definition of specific
+USO are set at European level as an essential component of market liberalization of service
+sectors, such as electronic communications, post and transport.
+
+Public service: Public service is used in article 93 TFEU in the field of transport. However,
+outside this area, the term is sometimes used in an ambiguous way: it can relate to the fact that
+a service is offered to the general public and/or in the public interest, or it can be used for the
+activity of entities in public ownership. To avoid ambiguity, this Communication does not use
+the term but follows the terminology &quot;service of general interest&quot; and &quot;service of general
+economic interest&quot;.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Territory -->
+
+    <owl:Class rdf:about="&eccf;#Territory">
+        <rdfs:label xml:lang="en">Territory</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Location"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Time -->
+
+    <owl:Class rdf:about="&eccf;#Time">
+        <rdfs:label xml:lang="en">Time</rdfs:label>
+        <rdfs:comment xml:lang="en">An individual member of class Temporal can have  one or two data-properties.
+In the first case it refers to a point in time, in the second - to a period (or interval - see the difference in the comment of http://data.europa.eu/54i#hasPeriod), defined by periodStart and periodEnd.
+
+All three properties have their domain declared as member of class Temporal. This means that, if one of these properties is used by members of other classes, that member will be inferred as member of the Temporal class. The purpose is to be able query all temporal information from that single class.
+
+All three properties are declared as  functional. This means, each individual will have only one property of the kind.</rdfs:comment>
+        <skos:altLabel xml:lang="en">Temporal</skos:altLabel>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Transformation -->
+
+    <owl:Class rdf:about="&eccf;#Transformation">
+        <rdfs:label xml:lang="en">Transformation</rdfs:label>
+        <skos:altLabel xml:lang="en">Process</skos:altLabel>
+        <rdfs:comment xml:lang="en">Transformation in this sense can be used at any level. When used for small transformations such as to switch on a computer or to delete a file, its synonyms could be “action”, “task”, and “activity”. When transformation refers to a set of sequential actions, the common preference is to call it a “process”. “Activity” is also sometimes used for a bigger set of actions. Last, transformation can refer to such a big set of transition as “organisational transformation”.   
+
+Note on the preference of &quot;Transformation&quot; label over &quot;Process&quot; in ECCF:  
+The concept of &quot;Process&quot; suggests processing, sequence of activities. The focus is on the flow and on the activities, not on why they are performed. &quot;Transformation&quot; begs the question &quot;of what&quot; and &quot;for what&quot;. In addition, it further focuses more on the change of states, as captured by events, which can be observed, detected, recorded in a way that is less a matter of opinion.  
+
+“By a state of a system is meant any well-defined condition or property that can be recognised if it occurs again.” (R. Ashby) 
+
+Another reason to prefer Transformation is that it does not imply granularity and can be used recursively, while task, activity, sub-process and process cannot. Furthermore, &quot;Transformation&quot; can be applied in the same way to Activity and to an Event. For example, the state of a CatchMessageEvent (in the sense used in BPMN) is transformed from &quot;waiting&quot; to &apos;&quot;message</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Value -->
+
+    <owl:Class rdf:about="&eccf;#Value">
+        <rdfs:label xml:lang="en">Value</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Motivation"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/54i#Vision -->
+
+    <owl:Class rdf:about="&eccf;#Vision">
+        <rdfs:label xml:lang="en">Vision</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&eccf;#Motivation"/>
+        <rdfs:isDefinedBy rdf:resource="&eccf;#"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="http://s-bpm9b-a/datasources/ECglossary#Actor">
+        <skos:definition xml:lang="en">An entity capable of action</skos:definition>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
