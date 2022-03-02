@@ -1,0 +1,6 @@
+pandas
+numpy
+scipy
+sentence-transformers
+flask
+json2html
