@@ -6,61 +6,55 @@ import flask
 from flask import request, session, redirect, url_for, render_template, jsonify, send_file
 from datetime import date, datetime
 from json2html import *
-
 import warnings
-# from numba.errors import NumbaPerformanceWarning
+import faiss
+
+#Ignore warnings 
 warnings.simplefilter("ignore")
 
+#Set the pre-trained embedding model
 b_model = SentenceTransformer('distilbert-base-nli-mean-tokens')
 
+
+#IMPORT the essential data
 df_details = pd.read_csv('sbert_pretrained/df_details.csv')
-
-
 #Load dictionaries to dataframes
+#Vlabel
 np_label = np.load('sbert_pretrained/numpy_sbert_label_embeddings_dictionary.npy',allow_pickle=True)
 df_label_emb = pd.DataFrame(np_label.flat[0].items(), columns=['uri', 'vector_label']) 
-
+#Comment 
 np_comment = np.load('sbert_pretrained/numpy_sbert_comment_embeddings_dictionary.npy',allow_pickle=True)
 df_comment_emb = pd.DataFrame(np_comment.flat[0].items(), columns=['uri', 'vector_comment']) 
 
-df_details_vector_temp = pd.merge(df_details, df_label_emb, how='left', left_on='uri', right_on='uri' )
+#Converting URIs to str and strip is essential for merging  
+df_details['uri'] = df_details['uri'].str.strip()
+df_label_emb['uri'] = df_label_emb['uri'].str.strip()
+df_comment_emb['uri'] = df_comment_emb['uri'].str.strip()
 
+#Merge all in one dataframe
+df_details_vector_temp = pd.merge(df_details, df_label_emb, how='left', left_on='uri', right_on='uri' )
 df_details_vector = pd.merge(df_details_vector_temp, df_comment_emb, how='left', on='uri' )
 
-print(df_details_vector.shape)
+#Set the array that holds the embeddings from the labels to use it in faiss
+vl_arr  = np.array(df_details_vector['vector_label'].values.tolist())
 
 
-def closest(q):
 
-    df_results = pd.DataFrame(columns=['uri','type','label','comment', 'label_vector','cosine','cosine_label','cosine_comment']) #create results dataframe 
-    
-    emb = b_model.encode(str(q)) #calculate embedding of query 
+# Faiss initialisation for indexing embeddings        
+dim = 768        
+index = faiss.IndexFlatL2(dim)   # build the index
+print(index.is_trained)
+index.add(vl_arr)                # add vectors to the index
+print(index.ntotal)
 
-    for i in range(0,len(df_details_vector)):    # for each row in df_all
-      sp_dist_label = spatial.distance.cosine(emb, df_details_vector.iloc[i,4])  #spatial distance query and label
-      sp_dist_comment = spatial.distance.cosine(emb, df_details_vector.iloc[i,5])  #spatial distance query and comment
-      cosine_label   = 0 if np.isnan(sp_dist_label) else 1 - sp_dist_label #cosine query and label - if nan then 0 since some label values may be be nan  
-      cosine_comment = 0 if np.isnan(sp_dist_comment) else 1 - sp_dist_comment #cosine query and comment - if nan then 0 since some comment values may be be nan  
-      
-      # Keep the max cosine similarity between query-label and query comment 
-      cosine_max = max(cosine_label, cosine_comment)
-      
-      # Load everything in the results dataframe 
-      df_results = df_results.append([{'uri': df_details_vector.iloc[i,0],
-                                       'type': df_details_vector.iloc[i,1],
-                                       'label': df_details_vector.iloc[i,2],
-                                       'comment': df_details_vector.iloc[i,3],
-                                       'label_vector': df_details_vector.iloc[i,4],
-                                       'cosine': cosine_max,
-                                       'cosine_label': cosine_label ,
-                                       'cosine_comment': cosine_comment}], ignore_index = True)
-      
-      # Sort the results by cosine_max column
-      df_results.sort_values(by=['cosine'], ascending=False, inplace = True)
-      df_disp_drop = df_results.drop(['label_vector','cosine','cosine_label','cosine_comment'], axis=1)
-      df_disp_results = df_disp_drop[['label','comment','type','uri']]
 
-    return df_disp_results
+#Search function
+def search_faiss(query):
+    #Set the embedding 
+    emb = np.array([b_model.encode(str(query))]) #calculate embedding of query 
+    D, ids = index.search(emb, 20)
+    return df_details_vector.iloc[ids[0]][['uri','label','comment']]
+
 
 # Creating FastAPI instance 
 app = flask.Flask(__name__)
@@ -78,7 +72,8 @@ def search():
     if request.method == "POST":
         query = str(request.form["query"])
         session["query"] = query
-        df_result = closest(query)     
+        df_result = search_faiss(query)  
+        print(query)    
         session["json_result"] = df_result.to_json(orient = "records")
         json_result = json2html.convert(json = session["json_result"])
         return f"""<h1>Search Results </h1>\
@@ -90,4 +85,4 @@ def search():
 
 
 if __name__ == '__main__':
-  app.run()
+  app.run(host='0.0.0.0')
