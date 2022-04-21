@@ -1,0 +1,12 @@
+pandas
+numpy
+scipy
+sentence-transformers
+flask
+json2html
+dash==2.0.0
+dash_bootstrap_components==0.13.1
+dash_core_components==2.0.0
+dash_html_components==2.0.0
+spacy==3.1.3
+https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.1.0/en_core_web_md-3.1.0.tar.gz
